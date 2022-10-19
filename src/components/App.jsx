@@ -50,23 +50,21 @@ export class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
-  fetchImages = () => {
-    const { query, page } = this.state;
-    this.setState({ loading: true });
+  fetchImages = async () => {
+    try {
+      const { query, page } = this.state;
+      this.setState({ loading: true });
+      const imagesData = await fetchImagesWithQuery(query, page);
 
-    fetchImagesWithQuery(query, page)
-      .then(response =>
-        this.setState(prevState => ({
-          images: [...prevState.images, ...mapper(response.data.hits)],
-          total: response.data.total,
-        }))
-      )
-      .catch(error => {
-        toast.error(`${error}`);
-      })
-      .finally(() => {
-        this.setState({ loading: false });
-      });
+      this.setState(prevState => ({
+        images: [...prevState.images, ...mapper(imagesData.data.hits)],
+        total: imagesData.data.total,
+      }));
+    } catch (error) {
+      toast.error(`${error}`);
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
   render() {
