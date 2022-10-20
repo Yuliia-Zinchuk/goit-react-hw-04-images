@@ -9,17 +9,6 @@ import { Loader } from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 import { Button } from './Button/Button';
 
-// export class App extends Component {
-//   state = {
-//     query: '',
-//     images: [],
-//     currentImage: null,
-//     page: 1,
-//     loading: false,
-//     total: 0,
-//     perPage: 12,
-//   };
-
 export const App = () => {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
@@ -28,30 +17,6 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [perPage, setPerPage] = useState(12);
-
-  // componentDidUpdate(_, prevState) {
-  //   const {
-  //     state: { query, page },
-  //     fetchImages,
-  //   } = this;
-  //   if (prevState.query !== query || prevState.page !== page) {
-  //     fetchImages();
-  //   }
-  // }
-
-  // const fetchImages = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const imagesData = await fetchImagesWithQuery(query, page);
-
-  //     setImages([...images, ...mapper(imagesData.data.hits)]);
-  //     setTotal(imagesData.data.total);
-  //   } catch (error) {
-  //     toast.error(`${error}`);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   useEffect(() => {
     if (!query) {
@@ -90,30 +55,6 @@ export const App = () => {
     setPage(prevPage => prevPage + 1);
   };
 
-  // const fetchImages = async () => {
-  //   try {
-
-  //     setLoading(true);
-  //     const imagesData = await fetchImagesWithQuery(query, page);
-
-  //     this.setState(prevState => ({
-  //       images: [...prevState.images, ...mapper(imagesData.data.hits)],
-  //       total: imagesData.data.total,
-  //     }));
-  //   } catch (error) {
-  //     toast.error(`${error}`);
-  //   } finally {
-  //     this.setState({ loading: false });
-  //   }
-  // };
-
-  // const {
-  //   state: { loading, query, images, currentImage, total, page, perPage },
-  //   handleFormSubmit,
-  //   updateCurrentImage,
-  //   closeModal,
-  //   loadMore,
-  // } = this;
   return (
     <>
       <SearchBar onSubmit={handleFormSubmit} />
