@@ -1,7 +1,11 @@
+import { Loader } from 'components/Loader/Loader';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import css from './Moda.module.css';
+
 export const Modal = ({ src, closeModal }) => {
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const closeByEscape = ({ code }) => {
       if (code === 'Escape') {
@@ -20,11 +24,29 @@ export const Modal = ({ src, closeModal }) => {
       closeModal();
     }
   };
-
+  const loadHandler = () => {
+    setLoaded(true);
+  };
   return (
     <div className={css.Overlay} onClick={closeByBackdrop}>
       <div className={css.Modal}>
-        <img src={src.src} alt="" />
+        {loaded ? (
+          <img
+            src={src.src}
+            onLoad={loadHandler}
+            alt=""
+            // style={{ display: loaded ? 'block' : 'none' }}
+            className={css.loadedBloc}
+          />
+        ) : (
+          <img
+            src={src.src}
+            onLoad={loadHandler}
+            alt=""
+            className={css.loadedBloc}
+          />
+        )}
+        {!loaded && <Loader />}
       </div>
     </div>
   );

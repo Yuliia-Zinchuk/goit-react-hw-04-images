@@ -41,6 +41,7 @@ export const App = () => {
     setQuery(query);
     setPage(1);
     setImages([]);
+    setPerPage(12);
   };
 
   const openModal = data => {
